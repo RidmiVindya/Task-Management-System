@@ -1,0 +1,86 @@
+{"location":"app/api/tasks/route.ts:33","message":"POST handler entry","data":{"hasMongoUri":true},"timestamp":1771524765665,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:29","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524765677,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:37","message":"Creating new connection promise","data":{"mongoUriLength":72},"timestamp":1771524765677,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:52","message":"Awaiting cached promise","data":{},"timestamp":1771524765690,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:36","message":"Before connectDB","data":{},"timestamp":1771524765675,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:46","message":"Mongoose connect rejected","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524765768,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:57","message":"Connection error caught","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524765772,"runId":"run1","hypothesisId":"A,D"}
+{"location":"app/api/tasks/route.ts:75","message":"Error caught","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error","errorStack":"Error: querySrv ENOTFOUND _mongodb._tcp.200272500918\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:291:17)\n    at QueryReqWrap.callbackTrampoline (node:internal/async_hooks:130:17)"},"timestamp":1771524765775,"runId":"run1","hypothesisId":"A,B,C,D,E"}
+{"location":"lib/mongodb.ts:37","message":"Creating new connection promise","data":{"mongoUriLength":72},"timestamp":1771524765805,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:29","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524765804,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:52","message":"Awaiting cached promise","data":{},"timestamp":1771524765811,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:46","message":"Mongoose connect rejected","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524766036,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:57","message":"Connection error caught","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524766037,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:29","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524871608,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:52","message":"Awaiting cached promise","data":{},"timestamp":1771524871871,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:37","message":"Creating new connection promise","data":{"mongoUriLength":72},"timestamp":1771524871654,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:46","message":"Mongoose connect rejected","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524872226,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:57","message":"Connection error caught","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524872238,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:29","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524882433,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:37","message":"Creating new connection promise","data":{"mongoUriLength":73},"timestamp":1771524882488,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:52","message":"Awaiting cached promise","data":{},"timestamp":1771524882503,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:46","message":"Mongoose connect rejected","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524882757,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:57","message":"Connection error caught","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524882763,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524896769,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:43","message":"Creating new connection promise","data":{"mongoUriLength":73,"mongoUriPrefix":"mongodb+srv://ridmit"},"timestamp":1771524896771,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:68","message":"Awaiting cached promise","data":{},"timestamp":1771524896801,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:54","message":"Mongoose connect rejected","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524896931,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:73","message":"Connection error caught","data":{"errorMessage":"MongoDB connection failed: Invalid connection string or cluster not found. Please verify your MONGODB_URI in .env.local. The connection string should start with 'mongodb+srv://' and include your cluster hostname. Original error: querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524896933,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524921594,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:43","message":"Creating new connection promise","data":{"mongoUriLength":73,"mongoUriPrefix":"mongodb+srv://ridmit"},"timestamp":1771524921596,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:68","message":"Awaiting cached promise","data":{},"timestamp":1771524921599,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:54","message":"Mongoose connect rejected","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524921732,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:73","message":"Connection error caught","data":{"errorMessage":"MongoDB connection failed: Invalid connection string or cluster not found. Please verify your MONGODB_URI in .env.local. The connection string should start with 'mongodb+srv://' and include your cluster hostname. Original error: querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524921759,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524934299,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:68","message":"Awaiting cached promise","data":{},"timestamp":1771524934322,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:43","message":"Creating new connection promise","data":{"mongoUriLength":73,"mongoUriPrefix":"mongodb+srv://ridmit"},"timestamp":1771524934304,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:73","message":"Connection error caught","data":{"errorMessage":"MongoDB connection failed: Invalid connection string or cluster not found. Please verify your MONGODB_URI in .env.local. The connection string should start with 'mongodb+srv://' and include your cluster hostname. Original error: querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524934433,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:54","message":"Mongoose connect rejected","data":{"errorMessage":"querySrv ENOTFOUND _mongodb._tcp.200272500918","errorName":"Error"},"timestamp":1771524934432,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":false,"hasCachedPromise":false,"hasMongoUri":true},"timestamp":1771524960105,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:43","message":"Creating new connection promise","data":{"mongoUriLength":74,"mongoUriPrefix":"mongodb+srv://ridmit"},"timestamp":1771524960106,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:68","message":"Awaiting cached promise","data":{},"timestamp":1771524960122,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:50","message":"Mongoose connect resolved","data":{"readyState":1},"timestamp":1771524962357,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:70","message":"Connection cached successfully","data":{"readyState":1},"timestamp":1771524962358,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525001512,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525001510,"runId":"run1","hypothesisId":"A,D"}
+{"location":"app/api/tasks/route.ts:33","message":"POST handler entry","data":{"hasMongoUri":true},"timestamp":1771525013175,"runId":"run1","hypothesisId":"A,D"}
+{"location":"app/api/tasks/route.ts:36","message":"Before connectDB","data":{},"timestamp":1771525013180,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525013182,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525013182,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:39","message":"After connectDB success","data":{},"timestamp":1771525013184,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:42","message":"Before request.json","data":{},"timestamp":1771525013185,"runId":"run1","hypothesisId":"B"}
+{"location":"app/api/tasks/route.ts:45","message":"After request.json","data":{"bodyKeys":["title","description","status","priority"],"bodyValues":{"title":"ffff","description":"ffffff","status":"todo","priority":"medium"}},"timestamp":1771525013195,"runId":"run1","hypothesisId":"B"}
+{"location":"app/api/tasks/route.ts:50","message":"Before validation","data":{"body":{"title":"ffff","description":"ffffff","status":"todo","priority":"medium"}},"timestamp":1771525013197,"runId":"run1","hypothesisId":"C"}
+{"location":"app/api/tasks/route.ts:52","message":"After validation","data":{"success":true,"errors":null},"timestamp":1771525013201,"runId":"run1","hypothesisId":"C"}
+{"location":"app/api/tasks/route.ts:62","message":"Before Task.create","data":{"validatedData":{"title":"ffff","description":"ffffff","status":"todo","priority":"medium"}},"timestamp":1771525013206,"runId":"run1","hypothesisId":"C,E"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525013359,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525013355,"runId":"run1","hypothesisId":"A,D"}
+{"location":"app/api/tasks/route.ts:64","message":"After Task.create success","data":{"taskId":"699753958b484564e9c0e721"},"timestamp":1771525013448,"runId":"run1","hypothesisId":"C,E"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525038294,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525038295,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525039564,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525039571,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:33","message":"POST handler entry","data":{"hasMongoUri":true},"timestamp":1771525059700,"runId":"run1","hypothesisId":"A,D"}
+{"location":"app/api/tasks/route.ts:36","message":"Before connectDB","data":{},"timestamp":1771525059729,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525059749,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525059765,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:39","message":"After connectDB success","data":{},"timestamp":1771525059798,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:42","message":"Before request.json","data":{},"timestamp":1771525059833,"runId":"run1","hypothesisId":"B"}
+{"location":"app/api/tasks/route.ts:45","message":"After request.json","data":{"bodyKeys":["title","description","status","priority"],"bodyValues":{"title":"Test Task","description":"Test description","status":"todo","priority":"medium"}},"timestamp":1771525059938,"runId":"run1","hypothesisId":"B"}
+{"location":"app/api/tasks/route.ts:50","message":"Before validation","data":{"body":{"title":"Test Task","description":"Test description","status":"todo","priority":"medium"}},"timestamp":1771525059942,"runId":"run1","hypothesisId":"C"}
+{"location":"app/api/tasks/route.ts:52","message":"After validation","data":{"success":true,"errors":null},"timestamp":1771525059955,"runId":"run1","hypothesisId":"C"}
+{"location":"app/api/tasks/route.ts:62","message":"Before Task.create","data":{"validatedData":{"title":"Test Task","description":"Test description","status":"todo","priority":"medium"}},"timestamp":1771525059964,"runId":"run1","hypothesisId":"C,E"}
+{"location":"app/api/tasks/route.ts:64","message":"After Task.create success","data":{"taskId":"699753c38b484564e9c0e726"},"timestamp":1771525060223,"runId":"run1","hypothesisId":"C,E"}
+{"location":"app/api/tasks/route.ts:33","message":"POST handler entry","data":{"hasMongoUri":true},"timestamp":1771525072921,"runId":"run1","hypothesisId":"A,D"}
+{"location":"app/api/tasks/route.ts:36","message":"Before connectDB","data":{},"timestamp":1771525072927,"runId":"run1","hypothesisId":"A"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525072945,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525072950,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:39","message":"After connectDB success","data":{},"timestamp":1771525072978,"runId":"run1","hypothesisId":"A"}
+{"location":"app/api/tasks/route.ts:42","message":"Before request.json","data":{},"timestamp":1771525072989,"runId":"run1","hypothesisId":"B"}
+{"location":"app/api/tasks/route.ts:45","message":"After request.json","data":{"bodyKeys":["title","description","status","priority"],"bodyValues":{"title":"Assignment","description":"","status":"todo","priority":"medium"}},"timestamp":1771525073035,"runId":"run1","hypothesisId":"B"}
+{"location":"app/api/tasks/route.ts:50","message":"Before validation","data":{"body":{"title":"Assignment","description":"","status":"todo","priority":"medium"}},"timestamp":1771525073047,"runId":"run1","hypothesisId":"C"}
+{"location":"app/api/tasks/route.ts:52","message":"After validation","data":{"success":true,"errors":null},"timestamp":1771525073065,"runId":"run1","hypothesisId":"C"}
+{"location":"app/api/tasks/route.ts:62","message":"Before Task.create","data":{"validatedData":{"title":"Assignment","description":"","status":"todo","priority":"medium"}},"timestamp":1771525073074,"runId":"run1","hypothesisId":"C,E"}
+{"location":"app/api/tasks/route.ts:64","message":"After Task.create success","data":{"taskId":"699753d18b484564e9c0e728"},"timestamp":1771525073287,"runId":"run1","hypothesisId":"C,E"}
+{"location":"lib/mongodb.ts:35","message":"connectDB entry","data":{"hasCachedConn":true,"hasCachedPromise":true,"hasMongoUri":true},"timestamp":1771525132101,"runId":"run1","hypothesisId":"A,D"}
+{"location":"lib/mongodb.ts:38","message":"Using cached connection","data":{},"timestamp":1771525132187,"runId":"run1","hypothesisId":"A"}

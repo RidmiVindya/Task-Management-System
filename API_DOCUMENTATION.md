@@ -1,120 +1,286 @@
-# Authentication API Documentation
+# Task Management API Documentation
 
 ## Base URL
 
 ```
-http://localhost:3000/api/auth
+http://localhost:3000/api
+```
+
+## Response Format
+
+All responses follow a consistent structure:
+
+**Success Response:**
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Optional success message",
+  "count": 0
+}
+```
+
+**Error Response:**
+```json
+{
+  "success": false,
+  "error": "Error type",
+  "message": "Detailed error message",
+  "details": [ ... ]
+}
 ```
 
 ---
 
 ## Endpoints
 
-### 1. Register User
+### 1. Get All Tasks
 
-**Endpoint:** `POST /api/auth/register`
+**Endpoint:** `GET /api/tasks`
 
-**Purpose:** Create a new user account with email and password.
+**Description:** Retrieves all tasks sorted by creation date (newest first).
 
-**Request Body:**
+**Request:** No request body required.
 
+**Success Response (200 OK):**
 ```json
 {
-  "username": "johndoe",
-  "email": "john@example.com",
-  "password": "SecurePass123!"
+  "success": true,
+  "data": [
+    {
+      "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+      "title": "Complete project documentation",
+      "description": "Write comprehensive API docs",
+      "status": "in-progress",
+      "priority": "high",
+      "createdAt": "2026-02-20T10:30:00.000Z",
+      "updatedAt": "2026-02-20T10:30:00.000Z"
+    }
+  ],
+  "count": 1
+}
+```
+
+**Error Response (500 Internal Server Error):**
+```json
+{
+  "success": false,
+  "error": "Failed to fetch tasks",
+  "message": "Database connection error"
+}
+```
+
+**Status Codes:**
+- `200 OK` - Tasks retrieved successfully
+- `500 Internal Server Error` - Server or database error
+
+**Example:**
+```javascript
+const response = await fetch('/api/tasks');
+const result = await response.json();
+
+if (result.success) {
+  console.log(`Found ${result.count} tasks`);
+  result.data.forEach(task => console.log(task.title));
+}
+```
+
+---
+
+### 2. Get Task by ID
+
+**Endpoint:** `GET /api/tasks/:id`
+
+**Description:** Retrieves a single task by its MongoDB ObjectId.
+
+**Path Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| id | string | Yes | MongoDB ObjectId (24 hex characters) |
+
+**Success Response (200 OK):**
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+    "title": "Complete project documentation",
+    "description": "Write comprehensive API docs",
+    "status": "in-progress",
+    "priority": "high",
+    "createdAt": "2026-02-20T10:30:00.000Z",
+    "updatedAt": "2026-02-20T10:30:00.000Z"
+  }
+}
+```
+
+**Error Responses:**
+
+**400 Bad Request** - Invalid ID format:
+```json
+{
+  "success": false,
+  "error": "Invalid task ID format"
+}
+```
+
+**404 Not Found** - Task doesn't exist:
+```json
+{
+  "success": false,
+  "error": "Task not found"
+}
+```
+
+**500 Internal Server Error:**
+```json
+{
+  "success": false,
+  "error": "Failed to fetch task",
+  "message": "Database error"
+}
+```
+
+**Status Codes:**
+- `200 OK` - Task retrieved successfully
+- `400 Bad Request` - Invalid ObjectId format
+- `404 Not Found` - Task not found
+- `500 Internal Server Error` - Server error
+
+**Example:**
+```javascript
+const taskId = "65f1a2b3c4d5e6f7a8b9c0d1";
+const response = await fetch(`/api/tasks/${taskId}`);
+const result = await response.json();
+
+if (result.success) {
+  console.log(result.data.title);
+} else {
+  console.error(result.error);
+}
+```
+
+---
+
+### 3. Create Task
+
+**Endpoint:** `POST /api/tasks`
+
+**Description:** Creates a new task with validation.
+
+**Request Body:**
+```json
+{
+  "title": "New task title",
+  "description": "Optional task description",
+  "status": "todo",
+  "priority": "medium"
 }
 ```
 
 **Field Validation:**
 
-| Field | Type | Required | Constraints |
-|-------|------|----------|-------------|
-| username | string | Yes | 3-30 characters, alphanumeric + underscore |
-| email | string | Yes | Valid email format |
-| password | string | Yes | Min 8 characters, must contain uppercase, lowercase, number |
+| Field | Type | Required | Constraints | Default |
+|-------|------|----------|-------------|---------|
+| title | string | Yes | 1-200 characters, trimmed | - |
+| description | string | No | Max 1000 characters, trimmed | - |
+| status | enum | No | "todo", "in-progress", "done" | "todo" |
+| priority | enum | No | "low", "medium", "high" | "medium" |
 
-**Success Response (201):**
-
+**Success Response (201 Created):**
 ```json
 {
   "success": true,
-  "message": "User registered successfully",
   "data": {
-    "user": {
-      "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
-      "username": "johndoe",
-      "email": "john@example.com",
-      "createdAt": "2026-02-20T10:30:00.000Z"
-    }
-  }
+    "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+    "title": "New task title",
+    "description": "Optional task description",
+    "status": "todo",
+    "priority": "medium",
+    "createdAt": "2026-02-20T10:30:00.000Z",
+    "updatedAt": "2026-02-20T10:30:00.000Z"
+  },
+  "message": "Task created successfully"
 }
 ```
 
-**Error Response (400):**
+**Error Responses:**
 
+**400 Bad Request** - Validation failed:
 ```json
 {
   "success": false,
   "error": "Validation failed",
   "details": [
     {
-      "field": "email",
-      "message": "Email already exists"
+      "code": "too_small",
+      "minimum": 1,
+      "type": "string",
+      "inclusive": true,
+      "message": "Title is required",
+      "path": ["title"]
     }
   ]
 }
 ```
 
-**HTTP Status Codes:**
+**500 Internal Server Error:**
+```json
+{
+  "success": false,
+  "error": "Failed to create task",
+  "message": "Database error"
+}
+```
 
-- `201 Created` - User registered successfully
-- `400 Bad Request` - Validation error or duplicate email
-- `500 Internal Server Error` - Server error
+**Status Codes:**
+- `201 Created` - Task created successfully
+- `400 Bad Request` - Validation error (missing/invalid fields)
+- `500 Internal Server Error` - Server or database error
 
-**Security Considerations:**
-
-- Passwords are hashed using bcrypt (12 rounds) before storage
-- Password field is never returned in responses
-- Email uniqueness is enforced at database level
-
-**Usage Example:**
-
+**Example:**
 ```javascript
-const response = await fetch('http://localhost:3000/api/auth/register', {
+const response = await fetch('/api/tasks', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    username: 'johndoe',
-    email: 'john@example.com',
-    password: 'SecurePass123!'
+    title: 'Complete API documentation',
+    description: 'Write comprehensive docs for all endpoints',
+    status: 'in-progress',
+    priority: 'high'
   })
 });
 
-const data = await response.json();
-if (response.ok) {
-  console.log('User registered:', data.data.user);
+const result = await response.json();
+
+if (result.success) {
+  console.log('Task created:', result.data._id);
 } else {
-  console.error('Registration failed:', data.error);
+  console.error('Validation errors:', result.details);
 }
 ```
 
 ---
 
-### 2. Login User
+### 4. Update Task
 
-**Endpoint:** `POST /api/auth/login`
+**Endpoint:** `PUT /api/tasks/:id`
 
-**Purpose:** Authenticate user and issue JWT token stored in HTTP-only cookie.
+**Description:** Updates an existing task. All fields are optional.
+
+**Path Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| id | string | Yes | MongoDB ObjectId |
 
 **Request Body:**
-
 ```json
 {
-  "email": "john@example.com",
-  "password": "SecurePass123!"
+  "title": "Updated title",
+  "status": "done",
+  "priority": "low"
 }
 ```
 
@@ -122,304 +288,224 @@ if (response.ok) {
 
 | Field | Type | Required | Constraints |
 |-------|------|----------|-------------|
-| email | string | Yes | Valid email format |
-| password | string | Yes | Non-empty string |
+| title | string | No | 1-200 characters if provided, trimmed |
+| description | string | No | Max 1000 characters if provided, trimmed |
+| status | enum | No | "todo", "in-progress", "done" |
+| priority | enum | No | "low", "medium", "high" |
 
-**Success Response (200):**
-
+**Success Response (200 OK):**
 ```json
 {
   "success": true,
-  "message": "Login successful",
   "data": {
-    "user": {
-      "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
-      "username": "johndoe",
-      "email": "john@example.com"
-    }
-  }
+    "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+    "title": "Updated title",
+    "description": "Original description",
+    "status": "done",
+    "priority": "low",
+    "createdAt": "2026-02-20T10:30:00.000Z",
+    "updatedAt": "2026-02-20T11:00:00.000Z"
+  },
+  "message": "Task updated successfully"
 }
 ```
 
-**Error Response (401):**
+**Error Responses:**
 
+**400 Bad Request** - Invalid ID or validation error:
 ```json
 {
   "success": false,
-  "error": "Invalid email or password"
+  "error": "Invalid task ID format"
 }
 ```
 
-**HTTP Status Codes:**
+**404 Not Found:**
+```json
+{
+  "success": false,
+  "error": "Task not found"
+}
+```
 
-- `200 OK` - Login successful, JWT cookie set
-- `401 Unauthorized` - Invalid credentials
-- `400 Bad Request` - Validation error
+**500 Internal Server Error:**
+```json
+{
+  "success": false,
+  "error": "Failed to update task",
+  "message": "Database error"
+}
+```
+
+**Status Codes:**
+- `200 OK` - Task updated successfully
+- `400 Bad Request` - Invalid ID format or validation error
+- `404 Not Found` - Task not found
 - `500 Internal Server Error` - Server error
 
-**Security Considerations:**
-
-- JWT token is stored in HTTP-only cookie (not accessible via JavaScript)
-- Cookie is set with `Secure` flag (HTTPS only in production)
-- Cookie has `SameSite=Strict` to prevent CSRF attacks
-- Generic error message prevents user enumeration
-- Password comparison uses constant-time bcrypt comparison
-
-**Usage Example:**
-
+**Example:**
 ```javascript
-const response = await fetch('http://localhost:3000/api/auth/login', {
-  method: 'POST',
+const taskId = "65f1a2b3c4d5e6f7a8b9c0d1";
+const response = await fetch(`/api/tasks/${taskId}`, {
+  method: 'PUT',
   headers: {
     'Content-Type': 'application/json',
   },
-  credentials: 'include', // Required for cookies
   body: JSON.stringify({
-    email: 'john@example.com',
-    password: 'SecurePass123!'
+    status: 'done',
+    priority: 'low'
   })
 });
 
-const data = await response.json();
-if (response.ok) {
-  console.log('Login successful:', data.data.user);
-  // JWT cookie is automatically set by server
+const result = await response.json();
+
+if (result.success) {
+  console.log('Task updated:', result.data);
 } else {
-  console.error('Login failed:', data.error);
+  console.error(result.error);
 }
 ```
 
 ---
 
-### 3. Get Current User
+### 5. Delete Task
 
-**Endpoint:** `GET /api/auth/me`
+**Endpoint:** `DELETE /api/tasks/:id`
 
-**Purpose:** Retrieve authenticated user's profile information.
+**Description:** Permanently deletes a task by ID.
 
-**Request Headers:**
+**Path Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| id | string | Yes | MongoDB ObjectId |
 
-```
-Cookie: token=<jwt_token>
-```
+**Request:** No request body required.
 
-**Success Response (200):**
-
+**Success Response (200 OK):**
 ```json
 {
   "success": true,
-  "data": {
-    "user": {
-      "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
-      "username": "johndoe",
-      "email": "john@example.com",
-      "createdAt": "2026-02-20T10:30:00.000Z"
-    }
-  }
+  "message": "Task deleted successfully"
 }
 ```
 
-**Error Response (401):**
+**Error Responses:**
 
+**400 Bad Request** - Invalid ID format:
 ```json
 {
   "success": false,
-  "error": "Unauthorized",
-  "message": "Invalid or expired token"
+  "error": "Invalid task ID format"
 }
 ```
 
-**HTTP Status Codes:**
+**404 Not Found:**
+```json
+{
+  "success": false,
+  "error": "Task not found"
+}
+```
 
-- `200 OK` - User data retrieved successfully
-- `401 Unauthorized` - Missing, invalid, or expired token
+**500 Internal Server Error:**
+```json
+{
+  "success": false,
+  "error": "Failed to delete task",
+  "message": "Database error"
+}
+```
+
+**Status Codes:**
+- `200 OK` - Task deleted successfully
+- `400 Bad Request` - Invalid ObjectId format
+- `404 Not Found` - Task not found
 - `500 Internal Server Error` - Server error
 
-**Security Considerations:**
-
-- Requires valid JWT token in HTTP-only cookie
-- Token is verified using secret key
-- Token expiration is checked (default: 7 days)
-- User existence is verified in database
-
-**Usage Example:**
-
+**Example:**
 ```javascript
-const response = await fetch('http://localhost:3000/api/auth/me', {
-  method: 'GET',
-  credentials: 'include', // Sends cookies automatically
-  headers: {
-    'Content-Type': 'application/json',
-  }
+const taskId = "65f1a2b3c4d5e6f7a8b9c0d1";
+const response = await fetch(`/api/tasks/${taskId}`, {
+  method: 'DELETE'
 });
 
-const data = await response.json();
-if (response.ok) {
-  console.log('Current user:', data.data.user);
+const result = await response.json();
+
+if (result.success) {
+  console.log(result.message);
 } else {
-  console.error('Authentication failed:', data.error);
+  console.error(result.error);
 }
 ```
 
 ---
 
-### 4. Logout User
+## Security Considerations
 
-**Endpoint:** `POST /api/auth/logout`
+### Current Implementation
+- **No Authentication:** The current API does not implement authentication or authorization. All endpoints are publicly accessible.
+- **Input Validation:** All user inputs are validated using Zod schemas to prevent injection attacks and invalid data.
+- **MongoDB Injection Protection:** Mongoose ODM provides built-in protection against NoSQL injection attacks.
 
-**Purpose:** Clear JWT token cookie and invalidate session.
-
-**Request Headers:**
-
-```
-Cookie: token=<jwt_token>
-```
-
-**Success Response (200):**
-
-```json
-{
-  "success": true,
-  "message": "Logged out successfully"
-}
-```
-
-**HTTP Status Codes:**
-
-- `200 OK` - Logout successful, cookie cleared
-- `500 Internal Server Error` - Server error
-
-**Security Considerations:**
-
-- Clears HTTP-only cookie by setting expiration to past date
-- No token validation required (idempotent operation)
-
-**Usage Example:**
-
-```javascript
-const response = await fetch('http://localhost:3000/api/auth/logout', {
-  method: 'POST',
-  credentials: 'include',
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
-
-const data = await response.json();
-if (response.ok) {
-  console.log('Logged out successfully');
-  // Cookie is automatically cleared by server
-}
-```
+### Recommended Enhancements
+- **JWT Authentication:** Implement JWT tokens for user authentication
+- **HTTP-only Cookies:** Store tokens in HTTP-only cookies to prevent XSS attacks
+- **Rate Limiting:** Implement rate limiting to prevent abuse
+- **CORS Configuration:** Configure CORS to restrict allowed origins
+- **Input Sanitization:** Additional sanitization for user-generated content
 
 ---
 
-## Authentication Flow
+## Data Models
 
-### Registration Flow
+### Task Object
 
-1. Client sends registration request with username, email, and password
-2. Server validates input and checks for duplicate email
-3. Password is hashed using bcrypt
-4. User document is created in MongoDB
-5. Success response returned (no token issued)
-
-### Login Flow
-
-1. Client sends login request with email and password
-2. Server validates credentials against database
-3. Password is verified using bcrypt comparison
-4. JWT token is generated with user ID payload
-5. Token is set in HTTP-only cookie
-6. User data returned in response
-
-### Protected Route Access
-
-1. Client makes request to protected endpoint
-2. Server middleware extracts JWT from cookie
-3. Token is verified and decoded
-4. User ID is extracted and user is fetched from database
-5. Request proceeds with authenticated user context
-
-### Logout Flow
-
-1. Client sends logout request
-2. Server clears JWT cookie
-3. Success response returned
-
----
-
-## JWT Token Structure
-
-**Payload:**
-
-```json
-{
-  "userId": "65f1a2b3c4d5e6f7a8b9c0d1",
-  "iat": 1708425000,
-  "exp": 1709029800
+```typescript
+interface Task {
+  _id: string;                    // MongoDB ObjectId (24 hex characters)
+  title: string;                   // Required, 1-200 characters
+  description?: string;            // Optional, max 1000 characters
+  status: "todo" | "in-progress" | "done";  // Default: "todo"
+  priority: "low" | "medium" | "high";      // Default: "medium"
+  createdAt: string;              // ISO 8601 timestamp
+  updatedAt: string;              // ISO 8601 timestamp
 }
 ```
-
-**Claims:**
-
-- `userId`: MongoDB ObjectId of authenticated user
-- `iat`: Issued at timestamp
-- `exp`: Expiration timestamp (7 days from issue)
 
 ---
 
 ## Error Handling
 
-All endpoints follow consistent error response format:
+All endpoints return consistent error responses. Always check the `success` field before accessing `data`:
 
-```json
-{
-  "success": false,
-  "error": "Error type",
-  "message": "Human-readable error message",
-  "details": [] // Optional: field-level validation errors
+```javascript
+const response = await fetch('/api/tasks');
+const result = await response.json();
+
+if (!result.success) {
+  // Handle error
+  console.error(result.error);
+  if (result.details) {
+    // Validation errors
+    result.details.forEach(err => console.error(err.message));
+  }
+  return;
 }
+
+// Use data
+console.log(result.data);
 ```
 
-**Common Error Codes:**
+---
 
-- `400` - Bad Request (validation errors)
-- `401` - Unauthorized (authentication required/invalid)
-- `404` - Not Found (resource doesn't exist)
-- `500` - Internal Server Error (server-side issues)
+## Rate Limits
+
+Currently, no rate limits are enforced. For production, consider implementing:
+- 100 requests per minute per IP
+- 1000 requests per hour per IP
 
 ---
 
-## Security Best Practices
+## Support
 
-1. **Password Security:**
-   - Passwords are hashed with bcrypt (12 rounds)
-   - Passwords never returned in API responses
-   - Password validation enforces complexity requirements
-
-2. **Token Security:**
-   - JWT stored in HTTP-only cookies (XSS protection)
-   - Secure flag enabled (HTTPS only in production)
-   - SameSite=Strict (CSRF protection)
-   - Token expiration enforced
-
-3. **Input Validation:**
-   - All inputs validated using Zod schemas
-   - SQL injection prevented by Mongoose ODM
-   - XSS protection via input sanitization
-
-4. **Error Messages:**
-   - Generic messages prevent user enumeration
-   - Detailed errors logged server-side only
-
----
-
-## Rate Limiting
-
-Authentication endpoints are rate-limited to prevent brute force attacks:
-
-- **Login:** 5 attempts per 15 minutes per IP
-- **Register:** 3 attempts per hour per IP
-
-Exceeding limits returns `429 Too Many Requests`.
+For issues or questions, please refer to the project repository or contact the development team.

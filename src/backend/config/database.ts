@@ -21,6 +21,7 @@ if (!MONGODB_URI.startsWith("mongodb://") && !MONGODB_URI.startsWith("mongodb+sr
  * during API Route usage.
  */
 declare global {
+  // eslint-disable-next-line no-var
   var mongoose: {
     conn: mongoose.Mongoose | null;
     promise: Promise<mongoose.Mongoose> | null;
